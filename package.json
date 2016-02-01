@@ -4,7 +4,10 @@
   "description": "Value/path helper functions for javascript objects",
   "main": "vpo.js",
   "scripts": {
-    "test": "mocha --recursive -b -t 10000 -R spec"
+    "test": "npm run compile && mocha --recursive -b -t 10000 -R spec",
+    "compile": "babel vpo.es6.js -o vpo.js",
+    "develop": "babel vpo.es6.js -w -o vpo.js",
+    "prepublish": "npm test && uglifyjs --compress --mangle --output vpo.js -- vpo.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +25,19 @@
   },
   "homepage": "https://github.com/unlucio/vpo",
   "devDependencies": {
-    "mocha": "latest"
+    "babel-cli": "^6.4.5",
+    "babel-plugin-transform-es2015-modules-umd": "^6.4.3",
+    "babel-preset-es2015": "^6.3.13",
+    "mocha": "latest",
+    "uglifyjs": "^2.4.10"
+  },
+  "babel": {
+    "moduleId": "vpo",
+    "presets": [
+      "es2015"
+    ],
+    "plugins": [
+      "transform-es2015-modules-umd"
+    ]
   }
 }
